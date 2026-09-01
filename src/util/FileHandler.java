@@ -36,7 +36,7 @@ public class FileHandler {
                 }
             }
         } catch (IOException e) {
-            System.out.println("Error reading file: " + e.getMessage());
+            System.out.println("Error reading file '" + filePath + "': " + e.getMessage());
         }
 
         return lines;
