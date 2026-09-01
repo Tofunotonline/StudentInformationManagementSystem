@@ -1,0 +1,8 @@
+SUB001,Introduction to Programming,3,IT,none,40,5
+SUB002,Data Structures and Algorithms,4,IT,SUB001,35,3
+SUB003,Database Management,3,IT,SUB001,30,2
+SUB004,Business Administration,3,Business,none,50,4
+SUB005,Calculus I,4,Engineering,none,45,5
+SUB006,Physics I,3,Engineering,none,40,3
+SUB007,Web Development,3,IT,SUB002,30,0
+SUB008,Software Engineering,4,IT,SUB003,25,0
