@@ -42,6 +42,11 @@ public class Student {
     public void setFaculty(String faculty) { this.faculty = faculty; }
     public void setGpa(double gpa) { this.gpa = gpa; }
 
+    // quick info for printing
+    public String getShortInfo() {
+        return studentId + " - " + name + " (GPA: " + gpa + ")";
+    }
+
     /**
      * Convert to CSV format for file storage.
      */
