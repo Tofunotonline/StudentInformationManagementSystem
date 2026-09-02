@@ -48,6 +48,10 @@ public class StudentController {
      * Add a new student.
      */
     public boolean addStudent(Student student) {
+        if (student == null) {
+            System.out.println("Student cannot be null!");
+            return false;
+        }
         // Check duplicate ID
         for (Student s : students) {
             if (s.getStudentId().equals(student.getStudentId())) {
