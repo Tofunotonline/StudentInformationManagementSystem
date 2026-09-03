@@ -53,6 +53,10 @@ public class Subject {
     public void setMaxCapacity(int maxCapacity) { this.maxCapacity = maxCapacity; }
     public void setCurrentEnrollment(int currentEnrollment) { this.currentEnrollment = currentEnrollment; }
 
+    public boolean hasPrerequisite() {
+        return prerequisite != null && !prerequisite.equals("none") && !prerequisite.isEmpty();
+    }
+
     /**
      * Check if the subject still has available slots.
      */
