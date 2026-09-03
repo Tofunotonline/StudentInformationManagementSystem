@@ -403,8 +403,9 @@ public class ConsoleView {
             System.out.println("  1. Register course");
             System.out.println("  2. Drop course");
             System.out.println("  3. View my enrollments");
-            System.out.println("  4. Undo last action");
-            System.out.println("  5. Redo last action");
+            System.out.println("  4. Enter grade");
+            System.out.println("  5. Undo last action");
+            System.out.println("  6. Redo last action");
             System.out.println("  0. Back");
 
             int choice = InputValidator.readInt(scanner, "Enter choice: ");
@@ -412,8 +413,9 @@ public class ConsoleView {
                 case 1: registerCourse(); break;
                 case 2: dropCourse(); break;
                 case 3: viewEnrollments(); break;
-                case 4: enrollmentCtrl.undo(); break;
-                case 5: enrollmentCtrl.redo(); break;
+                case 4: enterGrade(); break;
+                case 5: enrollmentCtrl.undo(); break;
+                case 6: enrollmentCtrl.redo(); break;
                 case 0: back = true; break;
                 default: System.out.println("Invalid choice.");
             }
@@ -454,5 +456,20 @@ public class ConsoleView {
         for (Enrollment e : list) {
             System.out.println(e);
         }
+    }
+
+    private void enterGrade() {
+        String studentId = InputValidator.readString(scanner, "Student ID: ");
+        String subjectId = InputValidator.readString(scanner, "Subject ID: ");
+        System.out.print("Enter grade (0.0 to 10.0): ");
+        double grade = scanner.nextDouble();
+        scanner.nextLine(); // consume newline
+        
+        if (grade < 0.0 || grade > 10.0) {
+            System.out.println("Invalid grade! Must be between 0 and 10.");
+            return;
+        }
+        
+        enrollmentCtrl.updateGrade(studentId, subjectId, grade);
     }
 }
