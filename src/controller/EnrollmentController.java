@@ -1,20 +1,26 @@
 package controller;
 
 import datastructure.MyLinkedList;
+import datastructure.MyStack;
 import model.Enrollment;
 import util.FileHandler;
 
 /**
  * Controller for course registration.
+ * Also handles undo/redo using stack.
  */
 public class EnrollmentController {
 
     private MyLinkedList<Enrollment> enrollments;
+    private MyStack<String> undoStack;  // stores actions for undo
+    private MyStack<String> redoStack;  // stores actions for redo
     private final String filePath = "data/enrollments.csv";
     private int nextId;
 
     public EnrollmentController() {
         this.enrollments = new MyLinkedList<>();
+        this.undoStack = new MyStack<>();
+        this.redoStack = new MyStack<>();
         loadFromFile();
         this.nextId = enrollments.size() + 1;
     }
@@ -57,6 +63,10 @@ public class EnrollmentController {
         enrollments.add(enrollment);
         saveToFile();
 
+        // save to undo stack
+        undoStack.push("REGISTER:" + enrollId + ":" + studentId + ":" + subjectId + ":" + semester);
+        redoStack.clear(); // clear redo when new action happens
+
         System.out.println("Registered successfully! ID: " + enrollId);
         return true;
     }
@@ -74,6 +84,10 @@ public class EnrollmentController {
                 e.setStatus("DROPPED");
                 enrollments.set(i, e);
                 saveToFile();
+
+                undoStack.push("DROP:" + e.getEnrollmentId() + ":" + studentId + ":" + subjectId);
+                redoStack.clear();
+
                 System.out.println("Course dropped successfully!");
                 return true;
             }
@@ -82,7 +96,83 @@ public class EnrollmentController {
         return false;
     }
 
-    // TODO: add undo redo later
+    /**
+     * Undo last action.
+     */
+    public boolean undo() {
+        if (undoStack.isEmpty()) {
+            System.out.println("Nothing to undo!");
+            return false;
+        }
+
+        String action = undoStack.pop();
+        String[] parts = action.split(":");
+
+        if (parts[0].equals("REGISTER")) {
+            // undo register = remove enrollment
+            String enrollId = parts[1];
+            for (int i = 0; i < enrollments.size(); i++) {
+                if (enrollments.get(i).getEnrollmentId().equals(enrollId)) {
+                    enrollments.remove(i);
+                    break;
+                }
+            }
+            saveToFile();
+            redoStack.push(action);
+            System.out.println("Undo: registration removed");
+        } else if (parts[0].equals("DROP")) {
+            // undo drop = set back to ACTIVE
+            String enrollId = parts[1];
+            for (int i = 0; i < enrollments.size(); i++) {
+                if (enrollments.get(i).getEnrollmentId().equals(enrollId)) {
+                    enrollments.get(i).setStatus("ACTIVE");
+                    enrollments.set(i, enrollments.get(i));
+                    break;
+                }
+            }
+            saveToFile();
+            redoStack.push(action);
+            System.out.println("Undo: course re-activated");
+        }
+        return true;
+    }
+
+    /**
+     * Redo last undone action.
+     */
+    public boolean redo() {
+        if (redoStack.isEmpty()) {
+            System.out.println("Nothing to redo!");
+            return false;
+        }
+
+        String action = redoStack.pop();
+        String[] parts = action.split(":");
+
+        if (parts[0].equals("REGISTER")) {
+            // redo register = add back
+            String enrollId = parts[1];
+            Enrollment e = new Enrollment(enrollId, parts[2], parts[3], parts[4], "ACTIVE");
+            enrollments.add(e);
+            saveToFile();
+            undoStack.push(action);
+            System.out.println("Redo: registration restored");
+        } else if (parts[0].equals("DROP")) {
+            // redo drop = set to DROPPED again
+            String enrollId = parts[1];
+            for (int i = 0; i < enrollments.size(); i++) {
+                if (enrollments.get(i).getEnrollmentId().equals(enrollId)) {
+                    enrollments.get(i).setStatus("DROPPED");
+                    enrollments.set(i, enrollments.get(i));
+                    break;
+                }
+            }
+            saveToFile();
+            undoStack.push(action);
+            System.out.println("Redo: course dropped again");
+        }
+        return true;
+    }
 
     public MyLinkedList<Enrollment> getStudentEnrollments(String studentId) {
         MyLinkedList<Enrollment> result = new MyLinkedList<>();
