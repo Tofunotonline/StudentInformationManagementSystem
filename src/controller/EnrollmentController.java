@@ -97,6 +97,27 @@ public class EnrollmentController {
     }
 
     /**
+     * Update grade for an active enrollment.
+     */
+    public boolean updateGrade(String studentId, String subjectId, double grade) {
+        for (int i = 0; i < enrollments.size(); i++) {
+            Enrollment e = enrollments.get(i);
+            if (e.getStudentId().equals(studentId) && 
+                e.getSubjectId().equals(subjectId) && 
+                e.getStatus().equals("ACTIVE")) {
+                
+                e.setGrade(grade);
+                enrollments.set(i, e);
+                saveToFile();
+                System.out.println("Grade updated successfully!");
+                return true;
+            }
+        }
+        System.out.println("Active enrollment not found!");
+        return false;
+    }
+
+    /**
      * Undo last action.
      */
     public boolean undo() {
