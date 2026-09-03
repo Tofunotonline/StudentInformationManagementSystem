@@ -1,8 +1,7 @@
 package model;
 
 /**
- * Model class representing a Faculty (Department).
- * Stores faculty/department information.
+ * Faculty model class
  */
 public class Faculty {
     private String facultyId;
