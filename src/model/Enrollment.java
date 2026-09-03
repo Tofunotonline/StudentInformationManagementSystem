@@ -10,6 +10,7 @@ public class Enrollment {
     private String subjectId;
     private String semester;
     private String status; // ACTIVE, DROPPED, COMPLETED
+    private double grade; // -1 means not graded yet
 
     public Enrollment(String enrollmentId, String studentId, String subjectId,
                       String semester, String status) {
@@ -18,6 +19,17 @@ public class Enrollment {
         this.subjectId = subjectId;
         this.semester = semester;
         this.status = status;
+        this.grade = -1.0;
+    }
+
+    public Enrollment(String enrollmentId, String studentId, String subjectId,
+                      String semester, String status, double grade) {
+        this.enrollmentId = enrollmentId;
+        this.studentId = studentId;
+        this.subjectId = subjectId;
+        this.semester = semester;
+        this.status = status;
+        this.grade = grade;
     }
 
     // Getters
@@ -26,6 +38,7 @@ public class Enrollment {
     public String getSubjectId() { return subjectId; }
     public String getSemester() { return semester; }
     public String getStatus() { return status; }
+    public double getGrade() { return grade; }
 
     // Setters
     public void setEnrollmentId(String enrollmentId) { this.enrollmentId = enrollmentId; }
@@ -33,12 +46,13 @@ public class Enrollment {
     public void setSubjectId(String subjectId) { this.subjectId = subjectId; }
     public void setSemester(String semester) { this.semester = semester; }
     public void setStatus(String status) { this.status = status; }
+    public void setGrade(double grade) { this.grade = grade; }
 
     /**
      * Convert to CSV format for file storage.
      */
     public String toCsv() {
-        return enrollmentId + "," + studentId + "," + subjectId + "," + semester + "," + status;
+        return enrollmentId + "," + studentId + "," + subjectId + "," + semester + "," + status + "," + grade;
     }
 
     /**
@@ -49,19 +63,25 @@ public class Enrollment {
         if (parts.length < 5) {
             throw new IllegalArgumentException("Invalid CSV format for Enrollment: " + csvLine);
         }
+        double grade = -1.0;
+        if (parts.length > 5 && !parts[5].trim().isEmpty()) {
+            grade = Double.parseDouble(parts[5].trim());
+        }
         return new Enrollment(
             parts[0].trim(),
             parts[1].trim(),
             parts[2].trim(),
             parts[3].trim(),
-            parts[4].trim()
+            parts[4].trim(),
+            grade
         );
     }
 
     @Override
     public String toString() {
-        return String.format("| %-12s | %-10s | %-10s | %-10s | %-10s |",
-                enrollmentId, studentId, subjectId, semester, status);
+        String gradeStr = (grade >= 0) ? String.format("%.1f", grade) : "N/A";
+        return String.format("| %-12s | %-10s | %-10s | %-10s | %-10s | %-5s |",
+                enrollmentId, studentId, subjectId, semester, status, gradeStr);
     }
 
     @Override
