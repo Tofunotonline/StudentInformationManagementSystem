@@ -109,6 +109,36 @@ public class StudentController {
     }
 
     /**
+     * Calculate and update GPA for a student based on their enrollments.
+     */
+    public boolean calculateAndUpdateGpa(String studentId, MyLinkedList<model.Enrollment> enrollments, MyLinkedList<model.Subject> subjects) {
+        Student s = getStudentById(studentId);
+        if (s == null) return false;
+
+        double totalPoints = 0;
+        int totalCredits = 0;
+
+        for (model.Enrollment e : enrollments) {
+            // Only count if it's for this student and has a valid grade
+            if (e.getStudentId().equals(studentId) && e.getGrade() >= 0) {
+                // Find subject to get credits
+                for (model.Subject sub : subjects) {
+                    if (sub.getSubjectId().equals(e.getSubjectId())) {
+                        totalPoints += e.getGrade() * sub.getCredits();
+                        totalCredits += sub.getCredits();
+                        break;
+                    }
+                }
+            }
+        }
+
+        double gpa = totalCredits > 0 ? totalPoints / totalCredits : 0.0;
+        s.setGpa(gpa);
+        saveToFile();
+        return true;
+    }
+
+    /**
      * Get all students.
      */
     public MyLinkedList<Student> getAllStudents() {
