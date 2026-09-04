@@ -80,6 +80,7 @@ public class ConsoleView {
             System.out.println("  6. Sort students by GPA");
             System.out.println("  7. Sort students by name");
             System.out.println("  8. View student profile");
+            System.out.println("  9. Print academic transcript");
             System.out.println("  0. Back");
 
             int choice = InputValidator.readInt(scanner, "Enter choice: ");
@@ -92,6 +93,7 @@ public class ConsoleView {
                 case 6: sortStudentsByGpa(); break;
                 case 7: sortStudentsByName(); break;
                 case 8: viewStudentProfile(); break;
+                case 9: printTranscript(); break;
                 case 0: back = true; break;
                 default: System.out.println("Invalid choice.");
             }
@@ -205,6 +207,48 @@ public class ConsoleView {
                 System.out.println("  - " + e.getSubjectId() + " " + subName + " [" + e.getStatus() + "]");
             }
         }
+    }
+
+    private void printTranscript() {
+        String id = InputValidator.readString(scanner, "Enter student ID: ");
+        Student s = studentCtrl.getStudentById(id);
+        if (s == null) {
+            System.out.println("Student not found!");
+            return;
+        }
+        
+        // update GPA first before printing
+        studentCtrl.calculateAndUpdateGpa(id, enrollmentCtrl.getAllEnrollments(), subjectCtrl.getAllSubjects());
+        
+        System.out.println("\n=======================================================");
+        System.out.println("                 ACADEMIC TRANSCRIPT                   ");
+        System.out.println("=======================================================");
+        System.out.println("Student: " + s.getName() + " (" + s.getStudentId() + ")");
+        System.out.println("Faculty: " + s.getFaculty());
+        System.out.println("-------------------------------------------------------");
+        System.out.println(String.format("| %-10s | %-20s | %-7s | %-5s |", "Subject ID", "Name", "Credits", "Grade"));
+        System.out.println("-------------------------------------------------------");
+        
+        MyLinkedList<Enrollment> enrollments = enrollmentCtrl.getStudentEnrollments(id);
+        boolean hasGrades = false;
+        
+        for (Enrollment e : enrollments) {
+            if (e.getGrade() >= 0) {
+                Subject sub = subjectCtrl.getSubjectById(e.getSubjectId());
+                String subName = (sub != null) ? sub.getName() : "Unknown";
+                int credits = (sub != null) ? sub.getCredits() : 0;
+                System.out.println(String.format("| %-10s | %-20s | %-7d | %-5.1f |", 
+                        e.getSubjectId(), subName, credits, e.getGrade()));
+                hasGrades = true;
+            }
+        }
+        
+        if (!hasGrades) {
+            System.out.println("| No graded subjects yet.                             |");
+        }
+        System.out.println("-------------------------------------------------------");
+        System.out.println("Overall GPA: " + String.format("%.2f", s.getGpa()));
+        System.out.println("=======================================================\n");
     }
 
     // ==================== SUBJECT MENU ====================
