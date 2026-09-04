@@ -4,10 +4,8 @@ import datastructure.MyLinkedList;
 import model.Student;
 import util.FileHandler;
 
-/**
- * Controller for managing Student operations.
- * Handles CRUD and file loading/saving.
- */
+// Controller for managing Student operations
+// Handles CRUD and file loading/saving
 public class StudentController {
 
     private MyLinkedList<Student> students;
@@ -18,9 +16,7 @@ public class StudentController {
         loadFromFile();
     }
 
-    /**
-     * Load students from CSV file into linked list.
-     */
+    // load students from file
     private void loadFromFile() {
         MyLinkedList<String> lines = FileHandler.readFile(filePath);
         for (String line : lines) {
@@ -33,9 +29,7 @@ public class StudentController {
         }
     }
 
-    /**
-     * Save all students to CSV file.
-     */
+    // save to file
     public void saveToFile() {
         MyLinkedList<String> lines = new MyLinkedList<>();
         for (Student student : students) {
@@ -44,9 +38,7 @@ public class StudentController {
         FileHandler.writeFile(filePath, lines);
     }
 
-    /**
-     * Add a new student.
-     */
+    // add student
     public boolean addStudent(Student student) {
         if (student == null) {
             System.out.println("Student cannot be null!");
@@ -64,9 +56,7 @@ public class StudentController {
         return true;
     }
 
-    /**
-     * Get student by ID.
-     */
+    // get student by ID
     public Student getStudentById(String id) {
         for (Student s : students) {
             if (s.getStudentId().equals(id)) {
@@ -76,9 +66,7 @@ public class StudentController {
         return null;
     }
 
-    /**
-     * Update student info.
-     */
+    // update student info
     public boolean updateStudent(String id, String name, String email, String faculty) {
         for (int i = 0; i < students.size(); i++) {
             if (students.get(i).getStudentId().equals(id)) {
@@ -94,9 +82,7 @@ public class StudentController {
         return false;
     }
 
-    /**
-     * Delete student by ID.
-     */
+    // delete student by ID
     public boolean deleteStudent(String id) {
         for (int i = 0; i < students.size(); i++) {
             if (students.get(i).getStudentId().equals(id)) {
@@ -108,9 +94,7 @@ public class StudentController {
         return false;
     }
 
-    /**
-     * Calculate and update GPA for a student based on their enrollments.
-     */
+    // calc GPA based on enrollments and subjects
     public boolean calculateAndUpdateGpa(String studentId, MyLinkedList<model.Enrollment> enrollments, MyLinkedList<model.Subject> subjects) {
         Student s = getStudentById(studentId);
         if (s == null) return false;
@@ -138,16 +122,12 @@ public class StudentController {
         return true;
     }
 
-    /**
-     * Get all students.
-     */
+    // get all students
     public MyLinkedList<Student> getAllStudents() {
         return students;
     }
 
-    /**
-     * Get total student count.
-     */
+    // total student count
     public int getStudentCount() {
         return students.size();
     }
