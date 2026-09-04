@@ -1,10 +1,7 @@
 package datastructure;
 
-/**
- * Custom Stack implementation using linked list internally.
- * Used for Undo/Redo functionality in course registration operations.
- * LIFO (Last In, First Out) principle.
- */
+// custom stack (dung de luu lich su Undo/Redo)
+// LIFO (Last In, First Out)
 public class MyStack<T> {
 
     // Internal node class

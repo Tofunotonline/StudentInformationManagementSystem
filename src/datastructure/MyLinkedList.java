@@ -2,11 +2,8 @@ package datastructure;
 
 import java.util.Iterator;
 
-/**
- * Custom Singly Linked List implementation.
- * Used to store and manage collections of data (Students, Subjects, Faculties).
- * This replaces Java's built-in ArrayList/LinkedList.
- */
+// custom linked list (thay cho ArrayList)
+// dung de luu data Student, Subject, Faculty
 public class MyLinkedList<T> implements Iterable<T> {
 
     // Internal node class - each node holds data and a reference to the next node
