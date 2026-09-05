@@ -478,14 +478,29 @@ public class ConsoleView {
             System.out.println("Subject not found!");
             return;
         }
+        
+        if (!subject.hasAvailableSlots()) {
+            System.out.println("Cannot register! Subject is full (Max capacity: " + subject.getMaxCapacity() + ").");
+            return;
+        }
+
         String semester = InputValidator.readString(scanner, "Semester (e.g. 2026-1): ");
-        enrollmentCtrl.registerCourse(studentId, subjectId, subject.getPrerequisite(), semester);
+        if (enrollmentCtrl.registerCourse(studentId, subjectId, subject.getPrerequisite(), semester)) {
+            subject.incrementEnrollment();
+            subjectCtrl.saveToFile();
+        }
     }
 
     private void dropCourse() {
         String studentId = InputValidator.readString(scanner, "Student ID: ");
         String subjectId = InputValidator.readString(scanner, "Subject ID to drop: ");
-        enrollmentCtrl.dropCourse(studentId, subjectId);
+        if (enrollmentCtrl.dropCourse(studentId, subjectId)) {
+            Subject subject = subjectCtrl.getSubjectById(subjectId);
+            if (subject != null) {
+                subject.decrementEnrollment();
+                subjectCtrl.saveToFile();
+            }
+        }
     }
 
     private void viewEnrollments() {
