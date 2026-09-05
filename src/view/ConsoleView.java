@@ -473,12 +473,13 @@ public class ConsoleView {
             return;
         }
         String subjectId = InputValidator.readString(scanner, "Subject ID: ");
-        if (subjectCtrl.getSubjectById(subjectId) == null) {
+        Subject subject = subjectCtrl.getSubjectById(subjectId);
+        if (subject == null) {
             System.out.println("Subject not found!");
             return;
         }
         String semester = InputValidator.readString(scanner, "Semester (e.g. 2026-1): ");
-        enrollmentCtrl.registerCourse(studentId, subjectId, semester);
+        enrollmentCtrl.registerCourse(studentId, subjectId, subject.getPrerequisite(), semester);
     }
 
     private void dropCourse() {

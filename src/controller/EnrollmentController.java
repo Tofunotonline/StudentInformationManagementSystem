@@ -47,13 +47,30 @@ public class EnrollmentController {
     /**
      * Register a student for a subject.
      */
-    public boolean registerCourse(String studentId, String subjectId, String semester) {
+    public boolean registerCourse(String studentId, String subjectId, String prereq, String semester) {
         // check if already enrolled
         for (Enrollment e : enrollments) {
             if (e.getStudentId().equals(studentId) &&
                 e.getSubjectId().equals(subjectId) &&
                 e.getStatus().equals("ACTIVE")) {
                 System.out.println("Already enrolled in this subject!");
+                return false;
+            }
+        }
+
+        // check prerequisite
+        if (prereq != null && !prereq.equalsIgnoreCase("none") && !prereq.trim().isEmpty()) {
+            boolean passedPrereq = false;
+            for (Enrollment e : enrollments) {
+                if (e.getStudentId().equals(studentId) && 
+                    e.getSubjectId().equals(prereq) && 
+                    (e.getGrade() >= 5.0 || e.getStatus().equals("COMPLETED"))) {
+                    passedPrereq = true;
+                    break;
+                }
+            }
+            if (!passedPrereq) {
+                System.out.println("Cannot register! You must pass the prerequisite: " + prereq);
                 return false;
             }
         }
