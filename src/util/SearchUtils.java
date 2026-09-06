@@ -2,15 +2,10 @@ package util;
 
 import datastructure.MyLinkedList;
 
-/**
- * Custom search algorithms.
- */
 public class SearchUtils {
 
-    /**
-     * Linear search - find items that match a keyword in a field.
-     * Works on unsorted data.
-     */
+    //search match a keyword in a field.
+    
     public static MyLinkedList<String> linearSearch(MyLinkedList<String> lines, String keyword, int fieldIndex) {
         MyLinkedList<String> results = new MyLinkedList<>();
         String lowerKeyword = keyword.toLowerCase();
@@ -26,10 +21,8 @@ public class SearchUtils {
         return results;
     }
 
-    /**
-     * Simple search through student names or IDs.
-     * Returns matching indices from the linked list.
-     */
+    //Simple search through student names or IDs.
+   
     public static MyLinkedList<Integer> searchByKeyword(MyLinkedList<String[]> dataList, String keyword, int fieldIndex) {
         MyLinkedList<Integer> matchingIndices = new MyLinkedList<>();
         String lower = keyword.toLowerCase();

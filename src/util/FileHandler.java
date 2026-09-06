@@ -9,16 +9,9 @@ import java.io.IOException;
 
 import datastructure.MyLinkedList;
 
-/**
- * Utility class for reading and writing CSV files.
- * Handles all file I/O operations for the system.
- */
+//Utility class for reading and writing CSV files.
+ 
 public class FileHandler {
-
-    /**
-     * Read all lines from a CSV file.
-     * Returns a MyLinkedList of strings (each string is one line).
-     */
     public static MyLinkedList<String> readFile(String filePath) {
         MyLinkedList<String> lines = new MyLinkedList<>();
         File file = new File(filePath);
@@ -42,9 +35,6 @@ public class FileHandler {
         return lines;
     }
 
-    /**
-     * Write all lines to a CSV file (overwrites existing content).
-     */
     public static void writeFile(String filePath, MyLinkedList<String> lines) {
         File file = new File(filePath);
 
@@ -64,9 +54,6 @@ public class FileHandler {
         }
     }
 
-    /**
-     * Append a single line to a CSV file.
-     */
     public static void appendToFile(String filePath, String line) {
         File file = new File(filePath);
 
@@ -83,9 +70,6 @@ public class FileHandler {
         }
     }
 
-    /**
-     * Check if a file exists.
-     */
     public static boolean fileExists(String filePath) {
         return new File(filePath).exists();
     }

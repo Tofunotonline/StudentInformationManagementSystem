@@ -3,16 +3,10 @@ package util;
 import java.util.Comparator;
 import datastructure.MyLinkedList;
 
-/**
- * Custom sorting algorithms.
- * Implements Bubble Sort and Insertion Sort manually.
- */
-public class SortUtils {
 
-    /**
-     * Bubble Sort - sort linked list using comparator.
-     * Simple but O(n^2) complexity.
-     */
+//Bubble Sort and Insertion Sort manually.
+
+public class SortUtils {
     public static <T> void bubbleSort(MyLinkedList<T> list, Comparator<T> comparator) {
         int n = list.size();
         if (n <= 1) return;
@@ -33,10 +27,6 @@ public class SortUtils {
         }
     }
 
-    /**
-     * Insertion Sort - sort linked list using comparator.
-     * Good for small or nearly sorted data.
-     */
     @SuppressWarnings("unchecked")
     public static <T> void insertionSort(MyLinkedList<T> list, Comparator<T> comparator) {
         int n = list.size();
