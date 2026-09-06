@@ -1,9 +1,6 @@
 package model;
 
-/**
- * Model class representing a Student.
- * Stores student information and enrolled subjects.
- */
+//Stores student information and enrolled subjects.
 public class Student {
     private String studentId;
     private String name;
@@ -19,7 +16,6 @@ public class Student {
         this.gpa = 0.0;
     }
 
-    // Constructor with GPA (used when loading from file)
     public Student(String studentId, String name, String email, String faculty, double gpa) {
         this.studentId = studentId;
         this.name = name;
@@ -28,35 +24,26 @@ public class Student {
         this.gpa = gpa;
     }
 
-    // Getters
     public String getStudentId() { return studentId; }
     public String getName() { return name; }
     public String getEmail() { return email; }
     public String getFaculty() { return faculty; }
     public double getGpa() { return gpa; }
 
-    // Setters
     public void setStudentId(String studentId) { this.studentId = studentId; }
     public void setName(String name) { this.name = name; }
     public void setEmail(String email) { this.email = email; }
     public void setFaculty(String faculty) { this.faculty = faculty; }
     public void setGpa(double gpa) { this.gpa = gpa; }
 
-    // quick info for printing
     public String getShortInfo() {
         return studentId + " - " + name + " (GPA: " + gpa + ")";
     }
 
-    /**
-     * Convert to CSV format for file storage.
-     */
     public String toCsv() {
         return studentId + "," + name + "," + email + "," + faculty + "," + gpa;
     }
 
-    /**
-     * Create Student from CSV line.
-     */
     public static Student fromCsv(String csvLine) {
         String[] parts = csvLine.split(",");
         if (parts.length < 5) {

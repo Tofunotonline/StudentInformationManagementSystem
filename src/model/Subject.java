@@ -1,9 +1,7 @@
 package model;
 
-/**
- * Model class representing a Subject (Course).
- * Stores subject information like credits, prerequisites, etc.
- */
+//Stores subject information like credits, prerequisites, etc.
+
 public class Subject {
     private String subjectId;
     private String name;
@@ -35,7 +33,6 @@ public class Subject {
         this.currentEnrollment = currentEnrollment;
     }
 
-    // Getters
     public String getSubjectId() { return subjectId; }
     public String getName() { return name; }
     public int getCredits() { return credits; }
@@ -44,7 +41,6 @@ public class Subject {
     public int getMaxCapacity() { return maxCapacity; }
     public int getCurrentEnrollment() { return currentEnrollment; }
 
-    // Setters
     public void setSubjectId(String subjectId) { this.subjectId = subjectId; }
     public void setName(String name) { this.name = name; }
     public void setCredits(int credits) { this.credits = credits; }
@@ -57,42 +53,29 @@ public class Subject {
         return prerequisite != null && !prerequisite.equals("none") && !prerequisite.isEmpty();
     }
 
-    /**
-     * Check if the subject still has available slots.
-     */
     public boolean hasAvailableSlots() {
         return currentEnrollment < maxCapacity;
     }
 
-    /**
-     * Increment enrollment count when a student registers.
-     */
     public void incrementEnrollment() {
         if (currentEnrollment < maxCapacity) {
             currentEnrollment++;
         }
     }
 
-    /**
-     * Decrement enrollment count when a student drops.
-     */
     public void decrementEnrollment() {
         if (currentEnrollment > 0) {
             currentEnrollment--;
         }
     }
 
-    /**
-     * Convert to CSV format for file storage.
-     */
+    // Convert to CSV format for file storage.
     public String toCsv() {
         return subjectId + "," + name + "," + credits + "," + faculty + ","
                 + prerequisite + "," + maxCapacity + "," + currentEnrollment;
     }
 
-    /**
-     * Create Subject from CSV line.
-     */
+    //Create Subject from CSV line.
     public static Subject fromCsv(String csvLine) {
         String[] parts = csvLine.split(",");
         if (parts.length < 7) {

@@ -3,9 +3,7 @@ package util;
 import datastructure.MyLinkedList;
 
 public class SearchUtils {
-
     //search match a keyword in a field.
-    
     public static MyLinkedList<String> linearSearch(MyLinkedList<String> lines, String keyword, int fieldIndex) {
         MyLinkedList<String> results = new MyLinkedList<>();
         String lowerKeyword = keyword.toLowerCase();
@@ -22,7 +20,6 @@ public class SearchUtils {
     }
 
     //Simple search through student names or IDs.
-   
     public static MyLinkedList<Integer> searchByKeyword(MyLinkedList<String[]> dataList, String keyword, int fieldIndex) {
         MyLinkedList<Integer> matchingIndices = new MyLinkedList<>();
         String lower = keyword.toLowerCase();

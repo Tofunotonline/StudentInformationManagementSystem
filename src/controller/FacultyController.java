@@ -4,9 +4,6 @@ import datastructure.MyLinkedList;
 import model.Faculty;
 import util.FileHandler;
 
-/**
- * Controller for managing Faculty operations.
- */
 public class FacultyController {
 
     private MyLinkedList<Faculty> faculties;

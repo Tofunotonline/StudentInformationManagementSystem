@@ -25,9 +25,7 @@ public class MyLinkedList<T> implements Iterable<T> {
         this.size = 0;
     }
 
-    /**
-     * Add element to the end of the list.
-     */
+    //Add element to the end of the list.
     public void add(T data) {
         Node newNode = new Node(data);
         if (head == null) {
@@ -42,9 +40,7 @@ public class MyLinkedList<T> implements Iterable<T> {
         size++;
     }
 
-    /**
-     * Get element at specific index.
-     */
+    //Get element at specific index.
     public T get(int index) {
         if (index < 0 || index >= size) {
             throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + size);
@@ -56,10 +52,7 @@ public class MyLinkedList<T> implements Iterable<T> {
         return current.data;
     }
 
-    /**
-     * Remove element at specific index.
-     * Returns the removed element.
-     */
+    //Remove element
     public T remove(int index) {
         if (index < 0 || index >= size) {
             throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + size);
@@ -80,10 +73,7 @@ public class MyLinkedList<T> implements Iterable<T> {
         return removedData;
     }
 
-    /**
-     * Remove a specific element from the list.
-     * Returns true if found and removed.
-     */
+    //Remove a specific element from the list.
     public boolean removeElement(T data) {
         if (head == null) return false;
 
@@ -105,9 +95,7 @@ public class MyLinkedList<T> implements Iterable<T> {
         return false;
     }
 
-    /**
-     * Update element at specific index.
-     */
+    //Update element at specific index.
     public void set(int index, T data) {
         if (index < 0 || index >= size) {
             throw new IndexOutOfBoundsException("Index: " + index + ", Size: " + size);
@@ -119,9 +107,7 @@ public class MyLinkedList<T> implements Iterable<T> {
         current.data = data;
     }
 
-    /**
-     * Check if the list contains a specific element.
-     */
+    //Check if the list contains a specific element.
     public boolean contains(T data) {
         Node current = head;
         while (current != null) {
@@ -133,9 +119,7 @@ public class MyLinkedList<T> implements Iterable<T> {
         return false;
     }
 
-    /**
-     * Find index of an element. Returns -1 if not found.
-     */
+    //Find index of an element. Returns -1 if not found.
     public int indexOf(T data) {
         Node current = head;
         int index = 0;
@@ -149,31 +133,19 @@ public class MyLinkedList<T> implements Iterable<T> {
         return -1;
     }
 
-    /**
-     * Get the number of elements in the list.
-     */
     public int size() {
         return size;
     }
 
-    /**
-     * Check if the list is empty.
-     */
     public boolean isEmpty() {
         return size == 0;
     }
 
-    /**
-     * Clear all elements from the list.
-     */
     public void clear() {
         head = null;
         size = 0;
     }
 
-    /**
-     * Convert linked list to array for sorting purposes.
-     */
     @SuppressWarnings("unchecked")
     public T[] toArray(T[] array) {
         if (array.length < size) {
@@ -188,9 +160,6 @@ public class MyLinkedList<T> implements Iterable<T> {
         return array;
     }
 
-    /**
-     * Rebuild the list from an array (used after sorting).
-     */
     public void fromArray(T[] array, int length) {
         clear();
         for (int i = 0; i < length; i++) {
@@ -198,9 +167,6 @@ public class MyLinkedList<T> implements Iterable<T> {
         }
     }
 
-    /**
-     * Iterator to support for-each loops.
-     */
     @Override
     public Iterator<T> iterator() {
         return new Iterator<T>() {

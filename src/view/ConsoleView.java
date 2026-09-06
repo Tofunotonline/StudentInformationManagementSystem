@@ -146,10 +146,19 @@ public class ConsoleView {
 
     private void deleteStudent() {
         String id = InputValidator.readString(scanner, "Enter student ID to delete: ");
-        if (studentCtrl.deleteStudent(id)) {
-            System.out.println("Deleted successfully!");
-        } else {
+        Student existing = studentCtrl.getStudentById(id);
+        if (existing == null) {
             System.out.println("Student not found!");
+            return;
+        }
+        
+        String confirm = InputValidator.readString(scanner, "Are you sure you want to delete student " + existing.getName() + "? (y/n): ");
+        if (confirm.equalsIgnoreCase("y")) {
+            if (studentCtrl.deleteStudent(id)) {
+                System.out.println("Deleted successfully!");
+            }
+        } else {
+            System.out.println("Deletion cancelled.");
         }
     }
 

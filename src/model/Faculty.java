@@ -1,8 +1,5 @@
 package model;
 
-/**
- * Faculty model class
- */
 public class Faculty {
     private String facultyId;
     private String name;
@@ -23,28 +20,20 @@ public class Faculty {
         this.totalStudents = totalStudents;
     }
 
-    // Getters
     public String getFacultyId() { return facultyId; }
     public String getName() { return name; }
     public String getDean() { return dean; }
     public int getTotalStudents() { return totalStudents; }
 
-    // Setters
     public void setFacultyId(String facultyId) { this.facultyId = facultyId; }
     public void setName(String name) { this.name = name; }
     public void setDean(String dean) { this.dean = dean; }
     public void setTotalStudents(int totalStudents) { this.totalStudents = totalStudents; }
 
-    /**
-     * Convert to CSV format for file storage.
-     */
     public String toCsv() {
         return facultyId + "," + name + "," + dean + "," + totalStudents;
     }
 
-    /**
-     * Create Faculty from CSV line.
-     */
     public static Faculty fromCsv(String csvLine) {
         String[] parts = csvLine.split(",");
         if (parts.length < 4) {

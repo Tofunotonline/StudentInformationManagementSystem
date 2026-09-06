@@ -1,9 +1,8 @@
 package model;
 
-/**
- * Model class representing an Enrollment record.
- * Links a Student to a Subject they registered for.
- */
+
+//Links a Student to a Subject they registered for.
+
 public class Enrollment {
     private String enrollmentId;
     private String studentId;
@@ -48,16 +47,10 @@ public class Enrollment {
     public void setStatus(String status) { this.status = status; }
     public void setGrade(double grade) { this.grade = grade; }
 
-    /**
-     * Convert to CSV format for file storage.
-     */
     public String toCsv() {
         return enrollmentId + "," + studentId + "," + subjectId + "," + semester + "," + status + "," + grade;
     }
 
-    /**
-     * Create Enrollment from CSV line.
-     */
     public static Enrollment fromCsv(String csvLine) {
         String[] parts = csvLine.split(",");
         if (parts.length < 5) {
