@@ -79,8 +79,8 @@ public class ConsoleView {
             System.out.println("  5. Search student");
             System.out.println("  6. Sort students by GPA");
             System.out.println("  7. Sort students by name");
-            System.out.println("  8. View student profile");
-            System.out.println("  9. Print academic transcript");
+            System.out.println("  8. View Student Profile");
+            System.out.println("  9. Print Academic Transcript");
             System.out.println("  0. Back");
 
             int choice = InputValidator.readInt(scanner, "Enter choice: ");
