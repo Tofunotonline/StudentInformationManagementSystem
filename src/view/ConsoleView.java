@@ -530,9 +530,7 @@ public class ConsoleView {
     private void enterGrade() {
         String studentId = InputValidator.readString(scanner, "Student ID: ");
         String subjectId = InputValidator.readString(scanner, "Subject ID: ");
-        System.out.print("Enter grade (0.0 to 10.0): ");
-        double grade = scanner.nextDouble();
-        scanner.nextLine(); // consume newline
+        double grade = InputValidator.readDouble(scanner, "Enter grade (0.0 to 10.0): ");
         
         if (grade < 0.0 || grade > 10.0) {
             System.out.println("Invalid grade! Must be between 0 and 10.");
