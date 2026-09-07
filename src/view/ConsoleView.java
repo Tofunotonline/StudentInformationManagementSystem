@@ -503,12 +503,18 @@ public class ConsoleView {
     private void dropCourse() {
         String studentId = InputValidator.readString(scanner, "Student ID: ");
         String subjectId = InputValidator.readString(scanner, "Subject ID to drop: ");
-        if (enrollmentCtrl.dropCourse(studentId, subjectId)) {
-            Subject subject = subjectCtrl.getSubjectById(subjectId);
-            if (subject != null) {
-                subject.decrementEnrollment();
-                subjectCtrl.saveToFile();
+        
+        String confirm = InputValidator.readString(scanner, "Are you sure you want to drop this course? (y/n): ");
+        if (confirm.equals("y")) {
+            if (enrollmentCtrl.dropCourse(studentId, subjectId)) {
+                Subject subject = subjectCtrl.getSubjectById(subjectId);
+                if (subject != null) {
+                    subject.decrementEnrollment();
+                    subjectCtrl.saveToFile();
+                }
             }
+        } else {
+            System.out.println("Cancelled.");
         }
     }
 
