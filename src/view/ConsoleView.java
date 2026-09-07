@@ -505,7 +505,7 @@ public class ConsoleView {
         String subjectId = InputValidator.readString(scanner, "Subject ID to drop: ");
         
         String confirm = InputValidator.readString(scanner, "Are you sure you want to drop this course? (y/n): ");
-        if (confirm.equals("y")) {
+        if (confirm.equalsIgnoreCase("y")) {
             if (enrollmentCtrl.dropCourse(studentId, subjectId)) {
                 Subject subject = subjectCtrl.getSubjectById(subjectId);
                 if (subject != null) {
