@@ -10,7 +10,6 @@ import java.io.IOException;
 import datastructure.MyLinkedList;
 
 //Utility class for reading and writing CSV files.
- 
 public class FileHandler {
     public static MyLinkedList<String> readFile(String filePath) {
         MyLinkedList<String> lines = new MyLinkedList<>();

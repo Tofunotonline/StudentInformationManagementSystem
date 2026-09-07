@@ -5,10 +5,6 @@ import datastructure.MyStack;
 import model.Enrollment;
 import util.FileHandler;
 
-/**
- * Controller for course registration.
- * Also handles undo/redo using stack.
- */
 public class EnrollmentController {
 
     private MyLinkedList<Enrollment> enrollments;
@@ -44,9 +40,6 @@ public class EnrollmentController {
         FileHandler.writeFile(filePath, lines);
     }
 
-    /**
-     * Register a student for a subject.
-     */
     public boolean registerCourse(String studentId, String subjectId, String prereq, String semester) {
         // check if already enrolled
         for (Enrollment e : enrollments) {
@@ -88,9 +81,6 @@ public class EnrollmentController {
         return true;
     }
 
-    /**
-     * Drop a course.
-     */
     public boolean dropCourse(String studentId, String subjectId) {
         for (int i = 0; i < enrollments.size(); i++) {
             Enrollment e = enrollments.get(i);
@@ -113,9 +103,6 @@ public class EnrollmentController {
         return false;
     }
 
-    /**
-     * Update grade for an active enrollment.
-     */
     public boolean updateGrade(String studentId, String subjectId, double grade) {
         for (int i = 0; i < enrollments.size(); i++) {
             Enrollment e = enrollments.get(i);
@@ -134,9 +121,6 @@ public class EnrollmentController {
         return false;
     }
 
-    /**
-     * Undo last action.
-     */
     public boolean undo() {
         if (undoStack.isEmpty()) {
             System.out.println("Nothing to undo!");
@@ -174,10 +158,7 @@ public class EnrollmentController {
         }
         return true;
     }
-
-    /**
-     * Redo last undone action.
-     */
+    
     public boolean redo() {
         if (redoStack.isEmpty()) {
             System.out.println("Nothing to redo!");
